@@ -20,4 +20,3 @@ const slice = createSlice({
     }
 });
 export default slice.reducer;
-export const { setThemeMode, setLanguage } = slice.actions;

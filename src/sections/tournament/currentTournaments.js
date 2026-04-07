@@ -84,7 +84,7 @@ export default function CurrentTournaments() {
                     setOpen(false);
                 }
 
-                sendMessage(JSON.stringify({ command: 'get-tournamnet-list' }));
+                sendMessage(JSON.stringify({ command: 'get-tournament-list' }));
                 navigate(`/tournament-details/${room.id}`, { replace: true });
             }
         }
@@ -171,7 +171,8 @@ export default function CurrentTournaments() {
         const joined_check = room.tournament_users.find((t) => t.user_id == user.id);
         if (joined_check) {
             navigate('/tournament-details/' + room.id);
-        } 
+            return;
+        }
 
         if(user.id == room.owner){
             navigate('/tournament-details/' + room.id);
