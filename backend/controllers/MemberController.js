@@ -22,7 +22,7 @@ const { jwtsign, checkPassword, encryptPassword, ResponseUserModel } = require("
 // get user balance
 const amount = async (req, res) => {
     const validResult = validationResult(req);
-    if (!validResult.isEmpty) {
+    if (!validResult.isEmpty()) {
         return ResponseData.warning(res, validResult.array()[0].msg);
     }
     try {
@@ -41,7 +41,7 @@ const amount = async (req, res) => {
             }
             else {
                 // console.log(decoded);
-                return ResponseData.ok(res, 'Token valid', { token, amount: user.balance });
+                return ResponseData.ok(res, 'Token valid', { token: user.token, amount: user.balance });
             }
         })
 
@@ -79,10 +79,10 @@ const setProfile = async (req, res) => {
             user.password = await encryptPassword(req.body.password);
         await user.save();
 
-        ResponseData.ok(res, "Profile was changed", ResponseUserModel(user));
+        return ResponseData.ok(res, "Profile was changed", ResponseUserModel(user));
     } catch (error) {
         // console.log(error);
-        ResponseData.error(res, "Not saved", error);
+        return ResponseData.error(res, "Not saved", error);
     }
 
 }
@@ -123,7 +123,7 @@ const withdraw = async (req, res) => {
             // console.log(receipt);
         })
 
-        user.balance -= amount;
+        user.balance -= parseFloat(amount);
         await user.save()
 
         const transaction = await transactions.create({
@@ -164,7 +164,7 @@ const deposit = async (req, res) => {
         const amount = req.body.amount;
         const user = req.user;
 
-        user.balance += amount;
+        user.balance += parseFloat(amount);
         await user.save();
 
         const transaction = await transactions.create({
