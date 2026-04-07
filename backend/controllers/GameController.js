@@ -86,7 +86,7 @@ const createGame = async (req, res) => {
 const updateGame = async (req, res) => {
     const validResult = validationResult(req);
     const { updatedRoom } = require('./WebsocketController');
-    if (!validResult.isEmpty) {
+    if (!validResult.isEmpty()) {
         return ResponseData.warning(res, validResult.array()[0].msg);
     }
     try {
@@ -106,7 +106,7 @@ const updateGame = async (req, res) => {
 
         await updatedRoom(req.body.roomId, room);
 
-        ResponseData.ok(res, "Game was changed");
+        return ResponseData.ok(res, "Game was changed");
     }
     catch (err) {
         // console.log(err);
@@ -119,7 +119,7 @@ const kickUser = async (req, res) => {
     const user = req.body.kickUser;
     const { kickUser } = require('./WebsocketController');
     await kickUser(user, roomId);
-    ResponseData.ok(res, "Game was changed");
+    return ResponseData.ok(res, "Game was changed");
 }
 
 module.exports = {
