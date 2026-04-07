@@ -282,7 +282,7 @@ const initEventListener = () => {
 
                                 games.splice(index, 1);
 
-                                await rooms.destroy({where: { id: 2 }});
+                                await rooms.destroy({where: { id: game.id }});
                             }
 
                             const user = game.users.filter((t)=>!t.bot)[0]; console.log('final================================', user);

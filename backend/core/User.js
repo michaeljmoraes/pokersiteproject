@@ -348,14 +348,7 @@ class User {
 
         }
 
-        sames.sort((a, b) => {
-            if (a.number > b.number) {
-                return a
-            }
-            else {
-                return b;
-            }
-        })
+        sames.sort((a, b) => a.number > b.number ? -1 : 1)
         return sames;
     }
 
