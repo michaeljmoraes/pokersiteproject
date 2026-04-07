@@ -6,6 +6,10 @@
  * the path to resolve relatively — all wallet requests fail silently.
  *
  * Fix: remove the leading dot from all four paths.
+ *
+ * NOTE: these tests FAIL on the original buggy code (paths start with './')
+ * and PASS after the fix in PR #1 is applied. That's intentional — they act
+ * as regression guards.
  */
 
 import { API_ACCOUNT, API_AUTH, API_GAME } from '../utils/axios';
