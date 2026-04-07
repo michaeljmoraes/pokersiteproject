@@ -10,7 +10,7 @@ import ChatTip from '../ChatTip';
 import { useEffect, useMemo, useState } from 'react';
 import { Emoji } from 'emoji-picker-react';
 
-Player.protTypes = {
+Player.propTypes = {
     user: PropTypes.object,
     isCurrent: PropTypes.bool
 }
