@@ -61,7 +61,7 @@ const login = async (req, res) => {
     const { JOINED_USERS } = require('./WebsocketController');
 
     const validResult = validationResult(req);
-    if (!validResult.isEmpty) {
+    if (!validResult.isEmpty()) {
         return ResponseData.warning(res, validResult.array()[0].msg);
     }
     try {
