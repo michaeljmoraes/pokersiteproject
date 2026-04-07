@@ -89,7 +89,7 @@ const updateGame = async (req, res) => {
 
         await updatedTournaments();
 
-        ResponseData.ok(res, "Game was changed");
+        return ResponseData.ok(res, "Game was changed");
     }
     catch (err) {
         // console.log(err);
@@ -102,7 +102,7 @@ const kickUser = async (req, res) => {
     const user = req.body.kickUser;
     const { kickUser } = require('./WebsocketController');
     await kickUser(user, roomId);
-    ResponseData.ok(res, "Game was changed");
+    return ResponseData.ok(res, "Game was changed");
 }
 
 const joinGame = async (req, res) => {
@@ -127,7 +127,7 @@ const updateMember = async (req, res) => {
 
         await member.save();
 
-        ResponseData.ok(res, "Member was changed");
+        return ResponseData.ok(res, "Member was changed");
     }
     catch (err) {
         // console.log(err);
@@ -143,7 +143,7 @@ const startGame = async (req, res) => {
     const tournament_players = await tournament_users.findAll({where: {tournament_id: tournamentId, status: 1}, include: [users]});
     // console.log(tournament_players.length);
 
-    const current_tournament = await tournaments.findOne({id: tournamentId});
+    const current_tournament = await tournaments.findOne({where: {id: tournamentId}});
 
     const tables = await balancePlayersWithMaxSeats(tournament_players, 7);
 
@@ -179,7 +179,7 @@ const startGame = async (req, res) => {
 
     }
 
-    ResponseData.ok(res, "Game was started", tables);
+    return ResponseData.ok(res, "Game was started", tables);
 }
 
 module.exports = {
