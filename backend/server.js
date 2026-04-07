@@ -32,10 +32,10 @@ const db = require("./models/Model");
 
 const { initGames } = require('./core/Game');
 
-// db.sequelize.sync().then(() => {
-//     console.log("MYSQL Database synchronized");
-//     // initGames();
-// });
+db.sequelize.sync().then(() => {
+    console.log("MYSQL Database synchronized");
+    // initGames();
+});
 // install apis
 app.use('/api/account',memberRouter);
 app.use('/api/game',gameRouter);

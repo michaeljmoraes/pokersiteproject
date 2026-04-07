@@ -36,14 +36,16 @@ export default function ChooseGameRooms() {
     const [remainPoolTime, setRemainPoolTime] = useState(remains);
     useEffect(()=>{
         const feach = async()=>{
-            const res = await axiosInstance.get(API_GAME.pool);
-            if(res.status === 200 && res.data.result){
-                setPrizePool(res.data.result.pools.reduce((a,b)=>(a+b.poolAmount),0));
-                const time = new Date(res.data.result.current);
-                remains = 86400 - time.getHours()*3600 - time.getMinutes()*60 - time.getSeconds();
-                
+            try {
+                const res = await axiosInstance.get(API_GAME.pool);
+                if(res.status === 200 && res.data.result){
+                    setPrizePool(res.data.result.pools.reduce((a,b)=>(a+b.poolAmount),0));
+                    const time = new Date(res.data.result.current);
+                    remains = 86400 - time.getHours()*3600 - time.getMinutes()*60 - time.getSeconds();
+                }
+            } catch(err) {
+                // pool data unavailable, keep default values
             }
-            
         }
         // interval = setInterval(()=>{
         //     feach();
