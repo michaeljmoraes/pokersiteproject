@@ -6,6 +6,10 @@
  * all prop type checking for Player is silently disabled.
  *
  * Fix: Player.protTypes → Player.propTypes
+ *
+ * NOTE: these tests FAIL on the original buggy code (Player.propTypes === undefined)
+ * and PASS after the fix in PR #1 is applied. That's intentional — they act as
+ * regression guards.
  */
 
 import React from 'react';
