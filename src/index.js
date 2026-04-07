@@ -22,7 +22,7 @@ import { SettingsProvider } from './contexts/SettingsContext';
 import { AuthProvider } from './contexts/JWTContext';
 
 import { DAppProvider, BSCTestnet } from '@usedapp/core';
-import { getDefaultProvider } from 'ethers';
+import { ethers } from 'ethers';
 
 const container = document.getElementById('root');
 const root = ReactDOMClient.createRoot(container);
@@ -30,8 +30,9 @@ const root = ReactDOMClient.createRoot(container);
 const config = {
   readOnlyChainId: BSCTestnet.chainId,
   readOnlyUrls: {
-    [BSCTestnet.chainId]: getDefaultProvider(
-      'https://endpoints.omniatech.io/v1/bsc/testnet/public'
+    [BSCTestnet.chainId]: new ethers.providers.JsonRpcProvider(
+      'https://bsc-testnet.publicnode.com',
+      { chainId: BSCTestnet.chainId, name: 'bnbt' }
     ),
   },
 };
